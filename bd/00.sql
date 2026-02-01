@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS vroomer_db;
+CREATE DATABASE IF NOT EXISTS vroomer_db;
+USE vroomer_db;
