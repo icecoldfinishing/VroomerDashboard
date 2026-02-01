@@ -15,70 +15,77 @@ public class PageController {
     @GetMapping("/")
     public ModelView index() {
         ModelView mv = new ModelView("index.html");
-        mv.addObject("title", "Vroomer - Location de voitures");
+        mv.addObject("title", "Dashboard - Accueil");
         return mv;
     }
 
-    @GetMapping("/index")
-    public ModelView home() {
-        ModelView mv = new ModelView("index.html");
-        mv.addObject("title", "Vroomer - Accueil");
+    @GetMapping("/login")
+    public ModelView login() {
+        ModelView mv = new ModelView("login.html");
+        mv.addObject("title", "Connexion");
         return mv;
     }
 
-    @GetMapping("/about")
-    public ModelView about() {
-        ModelView mv = new ModelView("about.html");
-        mv.addObject("title", "À propos de Vroomer");
+    @GetMapping("/register")
+    public ModelView register() {
+        ModelView mv = new ModelView("register.html");
+        mv.addObject("title", "Inscription");
         return mv;
     }
 
-    @GetMapping("/services")
-    public ModelView services() {
-        ModelView mv = new ModelView("services.html");
-        mv.addObject("title", "Nos services");
+    @GetMapping("/profile")
+    public ModelView profile() {
+        ModelView mv = new ModelView("profile.html");
+        mv.addObject("title", "Profil");
+        return mv;
+    }
+
+    @GetMapping("/cards")
+    public ModelView cards() {
+        ModelView mv = new ModelView("cards.html");
+        mv.addObject("title", "Cartes");
+        return mv;
+    }
+
+    @GetMapping("/charts")
+    public ModelView charts() {
+        ModelView mv = new ModelView("charts.html");
+        mv.addObject("title", "Graphiques");
+        return mv;
+    }
+
+    @GetMapping("/forms")
+    public ModelView forms() {
+        ModelView mv = new ModelView("form-elements.html");
+        mv.addObject("title", "Formulaires");
+        return mv;
+    }
+
+    @GetMapping("/icons")
+    public ModelView icons() {
+        ModelView mv = new ModelView("icons.html");
+        mv.addObject("title", "Icônes");
+        return mv;
+    }
+
+    @GetMapping("/gallery")
+    public ModelView gallery() {
+        ModelView mv = new ModelView("gallery.html");
+        mv.addObject("title", "Galerie");
         return mv;
     }
 
     @GetMapping("/pricing")
     public ModelView pricing() {
-        ModelView mv = new ModelView("pricing.html");
+        ModelView mv = new ModelView("pricing-cards.html");
         mv.addObject("title", "Tarifs");
         return mv;
     }
-
-    @GetMapping("/car")
-    public ModelView cars() {
-        ModelView mv = new ModelView("car.html");
-        mv.addObject("title", "Nos voitures");
-        return mv;
-    }
-
-    @GetMapping("/car-single")
-    public ModelView carSingle() {
-        ModelView mv = new ModelView("car-single.html");
-        mv.addObject("title", "Détail voiture");
-        return mv;
-    }
-
-    @GetMapping("/blog")
-    public ModelView blog() {
-        ModelView mv = new ModelView("blog.html");
-        mv.addObject("title", "Blog");
-        return mv;
-    }
-
-    @GetMapping("/blog-single")
-    public ModelView blogSingle() {
-        ModelView mv = new ModelView("blog-single.html");
-        mv.addObject("title", "Article");
-        return mv;
-    }
-
-    @GetMapping("/contact")
-    public ModelView contact() {
-        ModelView mv = new ModelView("contact.html");
-        mv.addObject("title", "Contact");
+    
+    @GetMapping("/users")
+    public ModelView users() {
+        ModelView mv = new ModelView("users-list.html");
+        mv.addObject("title", "Liste des utilisateurs");
         return mv;
     }
 }
