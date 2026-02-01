@@ -16,8 +16,8 @@ WORKDIR /app
 # Copy the built jar from the project module (version-agnostic)
 COPY --from=build /build/project/target/*.jar /app/app.jar
 
-# Expose the same port as configured (defaults to 8088; overridable via env)
-EXPOSE 8088
+# Expose the same port as configured (defaults to 8089; overridable via env)
+EXPOSE 8089
 
 # Run the Spring Boot application
 ENTRYPOINT ["java","-jar","/app/app.jar"]
