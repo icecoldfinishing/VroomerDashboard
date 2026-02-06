@@ -1,3 +1,26 @@
 DROP DATABASE IF EXISTS vroomer_db;
-CREATE DATABASE IF NOT EXISTS vroomer_db;
-USE vroomer_db;
+CREATE DATABASE vroomer_db;
+\c vroomer_db;
+
+
+-- Table client
+CREATE TABLE IF NOT EXISTS client (
+	id SERIAL PRIMARY KEY,
+	nom VARCHAR(100) NOT NULL
+);
+
+-- Table hotel
+CREATE TABLE IF NOT EXISTS hotel (
+	id SERIAL PRIMARY KEY,
+	nom VARCHAR(100) NOT NULL
+);
+
+-- Table reservation
+CREATE TABLE IF NOT EXISTS reservation (
+	id SERIAL PRIMARY KEY,
+	idClient INTEGER REFERENCES client(id) ON DELETE CASCADE,
+	NbPassager INTEGER NOT NULL,
+	dateheure TIMESTAMP NOT NULL,
+	idHotel INTEGER REFERENCES hotel(id) ON DELETE CASCADE
+);
+
