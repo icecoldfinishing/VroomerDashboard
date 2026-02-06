@@ -1,0 +1,48 @@
+2026-02-6
+
+Sprint1 - faire une réservation et voir la liste de réservation
+
+table à utiliser :
+- Reservation : Id, idClient, NbPassager, DatHeure, idHotel 
+- Hotel :Id, nom
+
+Objectif BackOffice : 
+- formulaire insertion reservation
+- Hotel sans interface mais insert via script
+
+A faire
+
+Model
+    Hotel
+    - id
+    - nom
+
+    Reservation
+    - id
+    - idClient 
+    - nbPassager
+    - dateHeure
+    - idHotel
+
+Couche Controller
+    ReservationController
+
+    - Reservation reserver(Reservation r) return newR
+
+    Validation des champs :
+
+    - idClient requis
+    - nbPassager > 0
+    - dateHeure valide
+    - idHotel existant
+
+Routes
+    GET /backoffice/reservation/create
+ 
+Formulaire d’insertion
+
+    - idClient
+    - nbPassager
+    - dateHeure
+    - idHotel (select)
+    - Bouton submit
