@@ -4,23 +4,66 @@ CREATE DATABASE vroomer_db;
 
 
 -- Table client
-CREATE TABLE IF NOT EXISTS client (
+DROP TABLE IF EXISTS reservation;
+DROP TABLE IF EXISTS hotel;
+DROP TABLE IF EXISTS client;
+CREATE TABLE client (
 	id SERIAL PRIMARY KEY,
 	nom VARCHAR(100) NOT NULL
 );
 
 -- Table hotel
-CREATE TABLE IF NOT EXISTS hotel (
+CREATE TABLE hotel (
 	id SERIAL PRIMARY KEY,
 	nom VARCHAR(100) NOT NULL
 );
 
 -- Table reservation
-CREATE TABLE IF NOT EXISTS reservation (
+CREATE TABLE reservation (
 	id SERIAL PRIMARY KEY,
 	idClient INTEGER REFERENCES client(id) ON DELETE CASCADE,
-	NbPassager INTEGER NOT NULL,
+	nb_passager INTEGER NOT NULL,
 	dateheure TIMESTAMP NOT NULL,
 	idHotel INTEGER REFERENCES hotel(id) ON DELETE CASCADE
 );
+
+
+
+-- Insertion de clients
+INSERT INTO client (nom) VALUES
+('Alice Martin'),
+('Bob Dupont'),
+('Charlie Durand'),
+('Diane Petit'),
+('Eric Leroy'),
+('Fatou Ndiaye'),
+('Georges Blanc'),
+('Hélène Moreau'),
+('Ismael Traoré'),
+('Julie Bernard'),
+('Kevin Rousseau'),
+('Laura Girard'),
+('Mamadou Sy'),
+('Nina Dubois'),
+('Olivier Faure'),
+('Pauline Lefevre'),
+('Quentin Giraud'),
+('Rachid Benali'),
+('Sophie Laurent'),
+('Thomas Muller');
+
+-- Insertion d'hôtels
+INSERT INTO hotel (nom) VALUES
+('Hotel Central'),
+('Grand Palace'),
+('Sunset Resort'),
+('Ocean View'),
+('Mountain Lodge');
+
+-- Insertion de réservations (aléatoires)
+INSERT INTO reservation (idClient, nb_passager, dateheure, idHotel) VALUES
+(1, 2, '2026-02-07 10:00:00', 1),
+(2, 4, '2026-02-08 12:30:00', 2),
+(3, 1, '2026-02-09 09:15:00', 3),
+(4, 3, '2026-02-10 14:45:00', 4);
 
