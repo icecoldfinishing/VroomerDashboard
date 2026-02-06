@@ -1,6 +1,7 @@
 package etu.sprint.controller;
 
 import etu.sprint.model.ModelView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -86,6 +87,14 @@ public class PageController {
     public ModelView users() {
         ModelView mv = new ModelView("users-list.html");
         mv.addObject("title", "Liste des utilisateurs");
+        return mv;
+    }
+
+    @GetMapping("/reservation")
+    public ModelView reservation() {
+        ModelView mv = new ModelView();
+        mv.addItem("title", "Nouvelle réservation");
+        mv.setView("pages/reservation/reservation.html");
         return mv;
     }
 }

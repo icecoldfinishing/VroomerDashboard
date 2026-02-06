@@ -1,4 +1,14 @@
+etu\sprint\repository\reservation\ClientRepository.class
+etu\sprint\service\reservation\HotelService.class
+etu\sprint\repository\reservation\ReservationRepository.class
+etu\sprint\repository\reservation\HotelRepository.class
+etu\sprint\service\reservation\ClientService.class
+etu\sprint\service\reservation\ReservationService.class
+etu\sprint\entity\reservation\Reservation.class
 etu\sprint\config\WebMvcConfig.class
 etu\sprint\VroomerApplication.class
+etu\sprint\controller\ReservationApiController.class
+etu\sprint\entity\reservation\Client.class
 etu\sprint\config\ModelViewReturnValueHandler.class
 etu\sprint\controller\PageController.class
+etu\sprint\entity\reservation\Hotel.class
