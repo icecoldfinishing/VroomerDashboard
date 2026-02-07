@@ -1,9 +1,9 @@
-package com.vrommer.dashboard.model.reservation;
+package com.vroomer.dashboard.model.reservation;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import com.vrommer.dashboard.model.client.Client;
-import com.vrommer.dashboard.model.hotel.Hotel;
+import com.vroomer.dashboard.model.client.Client;
+import com.vroomer.dashboard.model.hotel.Hotel;
 
 @Entity
 public class Reservation {

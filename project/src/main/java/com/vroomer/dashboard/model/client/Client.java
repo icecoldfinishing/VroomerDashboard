@@ -1,4 +1,4 @@
-package com.vrommer.dashboard.model.client;
+package com.vroomer.dashboard.model.client;
 
 import jakarta.persistence.*;
 

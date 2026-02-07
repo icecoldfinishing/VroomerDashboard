@@ -1,7 +1,7 @@
-package com.vrommer.dashboard.service.client;
+package com.vroomer.dashboard.service.client;
 
-import com.vrommer.dashboard.model.client.Client;
-import com.vrommer.dashboard.repository.client.ClientRepository;
+import com.vroomer.dashboard.model.client.Client;
+import com.vroomer.dashboard.repository.client.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

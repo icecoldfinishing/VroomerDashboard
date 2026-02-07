@@ -1,7 +1,7 @@
-package com.vrommer.dashboard.service.hotel;
+package com.vroomer.dashboard.service.hotel;
 
-import com.vrommer.dashboard.model.hotel.Hotel;
-import com.vrommer.dashboard.repository.hotel.HotelRepository;
+import com.vroomer.dashboard.model.hotel.Hotel;
+import com.vroomer.dashboard.repository.hotel.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

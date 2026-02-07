@@ -45,16 +45,21 @@ public class ClassScanner {
     }
 
     public void scan(String basePackage) throws IOException, ClassNotFoundException, URISyntaxException {
+        // Support multiple packages separated by semicolon
+        String[] packages = basePackage.split(";");
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String path = basePackage.replace('.', '/');
-        Enumeration<URL> resources = classLoader.getResources(path);
-
-        while (resources.hasMoreElements()) {
-            URL resource = resources.nextElement();
-            if ("file".equals(resource.getProtocol())) {
-                scanDirectory(new File(resource.toURI()), basePackage);
-            } else if ("jar".equals(resource.getProtocol())) {
-                scanJar(resource);
+        for (String pkg : packages) {
+            String trimmedPkg = pkg.trim();
+            if (trimmedPkg.isEmpty()) continue;
+            String path = trimmedPkg.replace('.', '/');
+            Enumeration<URL> resources = classLoader.getResources(path);
+            while (resources.hasMoreElements()) {
+                URL resource = resources.nextElement();
+                if ("file".equals(resource.getProtocol())) {
+                    scanDirectory(new File(resource.toURI()), trimmedPkg);
+                } else if ("jar".equals(resource.getProtocol())) {
+                    scanJar(resource);
+                }
             }
         }
     }
@@ -145,15 +150,26 @@ public class ClassScanner {
                         }
                         ControllerMethod controllerMethod = new ControllerMethod(clazz, method);
 
-                        for (HttpMethod httpMethod : httpMethods) {
-                            routes.computeIfAbsent(fullPath, k -> new HashMap<>())
-                                  .compute(httpMethod, (k, v) -> {
-                                      if (v != null) {
-                                          throw new RuntimeException(String.format("Collision detected: URL '%s' with HTTP method '%s' is already mapped.", fullPath, httpMethod));
-                                      }
-                                      return controllerMethod;
-                                  });
-                            System.out.println(String.format("Mapped: %s %s -> %s.%s()", httpMethod, fullPath, clazz.getName(), method.getName()));
+                        // Map both /home and /home/ to the same controller
+                        List<String> pathsToMap = new ArrayList<>();
+                        pathsToMap.add(fullPath);
+                        if (!fullPath.endsWith("/")) {
+                            pathsToMap.add(fullPath + "/");
+                        } else {
+                            pathsToMap.add(fullPath.substring(0, fullPath.length() - 1));
+                        }
+
+                        for (String p : pathsToMap) {
+                            for (HttpMethod httpMethod : httpMethods) {
+                                routes.computeIfAbsent(p, k -> new HashMap<>())
+                                      .compute(httpMethod, (k, v) -> {
+                                          if (v != null) {
+                                              throw new RuntimeException(String.format("Collision detected: URL '%s' with HTTP method '%s' is already mapped.", p, httpMethod));
+                                          }
+                                          return controllerMethod;
+                                      });
+                                System.out.println(String.format("Mapped: %s %s -> %s.%s()", httpMethod, p, clazz.getName(), method.getName()));
+                            }
                         }
                     }
                 }

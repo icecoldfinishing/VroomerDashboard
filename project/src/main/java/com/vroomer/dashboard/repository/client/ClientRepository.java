@@ -1,6 +1,6 @@
-package com.vrommer.dashboard.repository.client;
+package com.vroomer.dashboard.repository.client;
 
-import com.vrommer.dashboard.model.client.Client;
+import com.vroomer.dashboard.model.client.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {

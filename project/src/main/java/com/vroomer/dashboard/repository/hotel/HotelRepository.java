@@ -1,6 +1,6 @@
-package com.vrommer.dashboard.repository.hotel;
+package com.vroomer.dashboard.repository.hotel;
 
-import com.vrommer.dashboard.model.hotel.Hotel;
+import com.vroomer.dashboard.model.hotel.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {

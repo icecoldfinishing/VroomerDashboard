@@ -1,4 +1,4 @@
-package com.vrommer.dashboard.model.hotel;
+package com.vroomer.dashboard.model.hotel;
 
 import jakarta.persistence.*;
 

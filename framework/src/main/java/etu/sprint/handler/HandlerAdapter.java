@@ -44,28 +44,56 @@ public class HandlerAdapter {
 
     private void injectSpringDependencies(Object instance, ServletContext servletContext) {
         try {
-            // 1. Try static holder: ApplicationContextProvider.getContext()
             Object appContext = null;
-            try {
-                Class<?> providerClass = Class.forName("etu.sprint.config.ApplicationContextProvider");
-                appContext = providerClass.getMethod("getContext").invoke(null);
-            } catch (Exception ignored) {}
 
-            // 2. Fallback: ServletContext attribute
-            if (appContext == null) {
-                appContext = servletContext.getAttribute("springApplicationContext");
+            // 1. Try custom attribute set by SpringContextInitializer
+            appContext = servletContext.getAttribute("springApplicationContext");
+            if (appContext != null) {
+                System.out.println("[HandlerAdapter] Found Spring context via servletContext attribute");
             }
 
-            // 3. Fallback: WebApplicationContextUtils
+            // 2. Try Spring ROOT attribute
+            if (appContext == null) {
+                appContext = servletContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+                if (appContext != null) {
+                    System.out.println("[HandlerAdapter] Found Spring context via ROOT attribute");
+                }
+            }
+
+            // 3. Try WebApplicationContextUtils via reflection
             if (appContext == null) {
                 try {
                     Class<?> utilsClass = Class.forName("org.springframework.web.context.support.WebApplicationContextUtils");
-                    appContext = utilsClass.getMethod("getWebApplicationContext", ServletContext.class).invoke(null, servletContext);
-                } catch (Exception ignored) {}
+                    appContext = utilsClass.getMethod("getRequiredWebApplicationContext", ServletContext.class).invoke(null, servletContext);
+                    if (appContext != null) {
+                        System.out.println("[HandlerAdapter] Found Spring context via WebApplicationContextUtils");
+                    }
+                } catch (Exception e) {
+                    System.err.println("[HandlerAdapter] WebApplicationContextUtils failed: " + e.getMessage());
+                }
+            }
+
+            // 4. Scan all servlet context attributes for any ApplicationContext
+            if (appContext == null) {
+                java.util.Enumeration<String> attrNames = servletContext.getAttributeNames();
+                while (attrNames.hasMoreElements()) {
+                    String name = attrNames.nextElement();
+                    Object attr = servletContext.getAttribute(name);
+                    if (attr != null && attr.getClass().getName().contains("ApplicationContext")) {
+                        appContext = attr;
+                        System.out.println("[HandlerAdapter] Found Spring context via attribute scan: " + name);
+                        break;
+                    }
+                }
             }
 
             if (appContext == null) {
                 System.err.println("[HandlerAdapter] WARNING: No Spring ApplicationContext found, cannot inject dependencies");
+                System.err.println("[HandlerAdapter] Available attributes:");
+                java.util.Enumeration<String> attrNames = servletContext.getAttributeNames();
+                while (attrNames.hasMoreElements()) {
+                    System.err.println("  - " + attrNames.nextElement());
+                }
                 return;
             }
 
@@ -77,12 +105,14 @@ public class HandlerAdapter {
                     Object bean = appContext.getClass().getMethod("getBean", Class.class).invoke(appContext, field.getType());
                     if (bean != null) {
                         field.set(instance, bean);
+                        System.out.println("[HandlerAdapter] Injected Spring bean: " + field.getType().getSimpleName() + " into " + field.getName());
                     }
-                } catch (Exception ignored) {
-                    // Bean not found in Spring context, skip this field
+                } catch (Exception e) {
+                    System.err.println("[HandlerAdapter] Could not inject " + field.getType().getSimpleName() + ": " + e.getMessage());
                 }
             }
         } catch (Exception e) {
+            System.err.println("[HandlerAdapter] Error during Spring injection:");
             e.printStackTrace();
         }
     }
@@ -152,8 +182,13 @@ public class HandlerAdapter {
                     // Si la vue est un fichier HTML, on sert le fichier statique correspondant
                     if (view != null && view.endsWith(".html")) {
                         ServletContext context = request.getServletContext();
-                        String staticPath = "/" + view;
+                        String staticPath = view.startsWith("/") ? view : "/" + view;
                         java.io.InputStream is = context.getResourceAsStream(staticPath);
+                        if (is == null) {
+                            // Try templates directory if not found
+                            staticPath = "/templates" + staticPath;
+                            is = context.getResourceAsStream(staticPath);
+                        }
                         if (is != null) {
                             response.setContentType("text/html;charset=UTF-8");
                             java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(is));
