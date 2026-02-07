@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Diffusions publicitaires</title>
+    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/iconly.css}">
+</head>
+<body>
+<script src="/assets/static/js/initTheme.js"></script>
+<div id="app">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Diffusions publicitaires</h3>
+                        <p class="text-subtitle text-muted">Enregistrer une diffusion et consulter l'historique</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/home">fly</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Diffusions</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <section class="row">
+                <div class="col-12 col-lg-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Ajouter une diffusion</h4>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/publicite/diffusions}" method="post" class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Société</label>
+                                    <select class="form-select" name="idSociete" required>
+                                        <option value="" disabled selected>Choisir...</option>
+                                        <option th:each="s : ${societes}" th:value="${s.idSociete}" th:text="${s.nom}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Vol instance</label>
+                                    <select class="form-select" name="idVolInstance" required>
+                                        <option value="" disabled selected>Choisir...</option>
+                                        <option th:each="vi : ${volInstances}" th:value="${vi.idVolInstance}"
+                                                th:text="${#temporals.format(vi.dateDepart, 'yyyy-MM-dd HH:mm')} + ' - ' + ${vi.vol.compagnie.nom}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Tarif publicitaire</label>
+                                    <select class="form-select" name="idTarifPub" required>
+                                        <option value="" disabled selected>Choisir...</option>
+                                        <option th:each="t : ${tarifs}" th:value="${t.idTarifPub}" th:text="${t.compagnie.nom} + ' - ' + ${#numbers.formatDecimal(t.montant, 0, 'COMMA', 0, 'POINT')} + ' Ar'"></option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Date diffusion</label>
+                                    <input type="date" class="form-control" name="dateDiffusion" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="number" min="0" class="form-control" name="nombre" required>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Diffusions enregistrées</h4>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Société</th>
+                                    <th>Vol</th>
+                                    <th>Tarif</th>
+                                    <th>Date</th>
+                                    <th>Nombre</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="d, i : ${diffusions}">
+                                    <td th:text="${i.index + 1}"></td>
+                                    <td th:text="${d.societe != null ? d.societe.nom : ''}"></td>
+                                    <td th:text="${#temporals.format(d.volInstance.dateDepart, 'yyyy-MM-dd HH:mm')}"></td>
+                                    <td th:text="${d.tarifPublicitaire != null ? (#numbers.formatDecimal(d.tarifPublicitaire.montant, 0, 'COMMA', 0, 'POINT') + ' Ar') : ''}"></td>
+                                    <td th:text="${#temporals.format(d.dateDiffusion, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${d.nombre}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

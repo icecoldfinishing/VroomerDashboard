@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Ajouter un tarif de vol</title>
+    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/iconly.css}">
+</head>
+<body>
+<script src="/assets/static/js/initTheme.js"></script>
+<div id="app">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Ajouter un tarif de vol</h3>
+                        <p class="text-subtitle text-muted">Définir le prix selon classe et type de passager</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/home">fly</a></li>
+                                <li class="breadcrumb-item"><a href="/flights/list">Reservation</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Tarifs</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <section class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Nouveau tarif</h4>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/tarifs/vol/ajouter}" method="post" class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Vol instance</label>
+                                    <select class="form-select" name="idVolInstance" required>
+                                        <option value="" disabled selected>Choisir...</option>
+                                        <option th:each="vi : ${volInstances}" th:value="${vi.idVolInstance}"
+                                                th:text="${#temporals.format(vi.dateDepart, 'yyyy-MM-dd HH:mm')} + ' - ' + ${vi.vol.compagnie.nom}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Classe</label>
+                                    <select class="form-select" name="classe" required>
+                                        <option value="ECONOMY">ECONOMY</option>
+                                        <option value="PREMIUM">PREMIUM</option>
+                                        <option value="FIRST">FIRST</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Type passager</label>
+                                    <select class="form-select" name="typePassager" required>
+                                        <option value="ADULTE">ADULTE</option>
+                                        <option value="ENFANT">ENFANT</option>
+                                        <option value="BEBE">BEBE</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Montant (Ar)</label>
+                                    <input type="number" min="0" name="montant" class="form-control" step="1" required>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -34,4 +34,9 @@ public class ModelView {
     public void addObject(String key, Object value) {
         addItem(key, value);
     }
+    
+    // Alias requested by user
+    public void add(String key, Object value) {
+        addItem(key, value);
+    }
 }

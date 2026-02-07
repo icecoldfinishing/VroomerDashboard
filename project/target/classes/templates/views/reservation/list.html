@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTable - Mazer Admin Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/assets/extensions/simple-datatables/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/table-datatable.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+</head>
+
+<body>
+    <!-- JS Init -->
+    <script th:src="@{/assets/static/js/initTheme.js}"></script>
+
+    <div id="app">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Réservations</h3>
+                            <p class="text-subtitle text-muted">Vous pouvez voir vos Rservations</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a th:href="@{/home}">fly</a></li>
+                                    <li class="breadcrumb-item" aria-current="page">& co</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Simple reservation list only -->
+
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Liste des réservations</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Client</th>
+                                        <th>Hotel</th>
+                                        <th>Nombre de passagers</th>
+                                        <th>Date/Heure</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="reservation : ${reservations}">
+                                        <td th:text="${reservation.id}"></td>
+                                        <td th:text="${reservation.client != null ? reservation.client.nom : 'N/A'}"></td>
+                                        <td th:text="${reservation.hotel != null ? reservation.hotel.nom : 'N/A'}"></td>
+                                        <td th:text="${reservation.nbPassager}"></td>
+                                        <td th:text="${#temporals.format(reservation.dateheure, 'dd/MM/yyyy HH:mm')}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2023 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JS Scripts -->
+    <script th:src="@{/assets/static/js/components/dark.js}"></script>
+    <script th:src="@{/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/assets/compiled/js/app.js}"></script>
+    <script th:src="@{/assets/extensions/simple-datatables/umd/simple-datatables.js}"></script>
+    <script th:src="@{/assets/static/js/pages/simple-datatables.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTable - Mazer Admin Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
+
+    <!-- Datatables Bootstrap 5 -->
+    <link rel="stylesheet" th:href="@{/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css}">
+
+    <!-- Tables -->
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/table-datatable-jquery.css}">
+
+    <!-- App core -->
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+</head>
+
+<body>
+    <!-- JS Init -->
+    <script th:src="@{/assets/static/js/initTheme.js}"></script>
+
+    <div id="app">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Vols</h3>
+                            <p class="text-subtitle text-muted">Vous pouvez voir vos communes</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/home">fly</a></li>
+                                    <li class="breadcrumb-item" aria-current="page">& co</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">
+                                Liste des vols
+                            </h5>
+                            <a href="/vols/ca-total" class="btn btn-primary">
+                                <i class="bi bi-calculator"></i> CA Total (Tickets + Publicité)
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th>Compagnie</th>
+                                            <th>Avion</th>
+                                            <th>Trajet</th>
+                                            <th>Date départ</th>
+                                            <th>Date arrivée</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="vi : ${volInstances}">
+                                            <td>
+                                                <span class="badge bg-light-primary" th:text="${vi.vol.compagnie.nom}">
+                                                </span>
+                                            </td>
+
+                                            <td
+                                                th:text="${vi.avion.modele + ' (' + vi.avion.numeroImmatriculation + ')'}">
+                                            </td>
+
+
+                                            <td>
+                                                <span class="badge bg-light-info"
+                                                    th:text="${vi.vol.aeroportDepart.ville + ' → ' + vi.vol.aeroportArrivee.ville}">
+                                                </span>
+                                            </td>
+
+                                            <td th:text="${#temporals.format(vi.dateDepart, 'dd/MM/yyyy HH:mm')}"></td>
+
+                                            <td th:text="${#temporals.format(vi.dateArrivee, 'dd/MM/yyyy HH:mm')}"></td>
+
+                                            <td class="text-nowrap">
+                                                <form class="d-inline"
+                                                    th:action="@{/avions/revenue}"
+                                                    method="post">
+                                                    <input type="hidden"
+                                                        name="idVolInstance"
+                                                        th:value="${vi.idVolInstance}" />
+                                                    <button type="submit" class="btn btn-outline-warning">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                </form>
+
+                                                <form class="d-inline ms-1"
+                                                    th:action="@{/publicite/vol}"
+                                                    method="get">
+                                                    <input type="hidden"
+                                                        name="id"
+                                                        th:value="${vi.idVolInstance}" />
+                                                    <button type="submit" class="btn btn-outline-success">
+                                                        <i class="bi bi-megaphone"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="me-1 mb-1 d-inline-block">
+                </section>
+            </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2023 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JS Scripts -->
+    <!-- Theme / Dark mode -->
+    <script th:src="@{/assets/static/js/components/dark.js}"></script>
+    <!-- Scroll -->
+    <script th:src="@{/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <!-- Core App -->
+    <script th:src="@{/assets/compiled/js/app.js}"></script>
+    <!-- jQuery -->
+    <script th:src="@{/assets/extensions/jquery/jquery.min.js}"></script>
+    <!-- DataTables -->
+    <script th:src="@{/assets/extensions/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js}"></script>
+    <!-- Page init -->
+    <script th:src="@{/assets/static/js/pages/datatables.js}"></script>
+
+    </script>
+</body>
+
+</html>

@@ -132,17 +132,21 @@ public class ClassScanner {
                         path = rm.value();
                         httpMethods = rm.method();
                         if (httpMethods.length == 0) {
-                            // If no method specified in RequestMapping, default to GET
                             httpMethods = new HttpMethod[]{HttpMethod.GET};
                         }
                     }
 
                     if (path != null && httpMethods != null) {
-                        String fullPath = normalizePath(controllerPrefix + "/" + path);
+                        String fullPath;
+                        if (path.equals("/")) {
+                            fullPath = normalizePath(controllerPrefix);
+                        } else {
+                            fullPath = normalizePath(controllerPrefix + path);
+                        }
                         ControllerMethod controllerMethod = new ControllerMethod(clazz, method);
 
                         for (HttpMethod httpMethod : httpMethods) {
-                            routes.computeIfAbsent(fullPath, k -> new HashMap<>()) // Get or create inner map for the path
+                            routes.computeIfAbsent(fullPath, k -> new HashMap<>())
                                   .compute(httpMethod, (k, v) -> {
                                       if (v != null) {
                                           throw new RuntimeException(String.format("Collision detected: URL '%s' with HTTP method '%s' is already mapped.", fullPath, httpMethod));

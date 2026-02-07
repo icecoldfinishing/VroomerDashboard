@@ -42,6 +42,51 @@ public class HandlerAdapter {
         }
     }
 
+    private void injectSpringDependencies(Object instance, ServletContext servletContext) {
+        try {
+            // 1. Try static holder: ApplicationContextProvider.getContext()
+            Object appContext = null;
+            try {
+                Class<?> providerClass = Class.forName("etu.sprint.config.ApplicationContextProvider");
+                appContext = providerClass.getMethod("getContext").invoke(null);
+            } catch (Exception ignored) {}
+
+            // 2. Fallback: ServletContext attribute
+            if (appContext == null) {
+                appContext = servletContext.getAttribute("springApplicationContext");
+            }
+
+            // 3. Fallback: WebApplicationContextUtils
+            if (appContext == null) {
+                try {
+                    Class<?> utilsClass = Class.forName("org.springframework.web.context.support.WebApplicationContextUtils");
+                    appContext = utilsClass.getMethod("getWebApplicationContext", ServletContext.class).invoke(null, servletContext);
+                } catch (Exception ignored) {}
+            }
+
+            if (appContext == null) {
+                System.err.println("[HandlerAdapter] WARNING: No Spring ApplicationContext found, cannot inject dependencies");
+                return;
+            }
+
+            // For each field in the controller, try to inject a Spring bean by type
+            for (Field field : instance.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                if (field.get(instance) != null) continue; // already set, skip
+                try {
+                    Object bean = appContext.getClass().getMethod("getBean", Class.class).invoke(appContext, field.getType());
+                    if (bean != null) {
+                        field.set(instance, bean);
+                    }
+                } catch (Exception ignored) {
+                    // Bean not found in Spring context, skip this field
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void handle(HttpServletRequest request, HttpServletResponse response, ControllerMethod controllerMethod,
                         Map<String, String> pathVariables) throws ServletException, IOException {
         try {
@@ -59,6 +104,9 @@ public class HandlerAdapter {
                 }
             }
             Object controllerInstance = controllerMethod.controllerClass.getDeclaredConstructor().newInstance();
+            
+            // Inject Spring dependencies if available
+            injectSpringDependencies(controllerInstance, request.getServletContext());
             Parameter[] parameters = method.getParameters();
             Object[] args = new Object[parameters.length];
             Map<String, String[]> requestParams = request.getParameterMap();
@@ -100,9 +148,26 @@ public class HandlerAdapter {
                     response.getWriter().println(returnValue);
                 } else if (returnValue instanceof ModelView) {
                     ModelView mv = (ModelView) returnValue;
-                    mv.getData().forEach(request::setAttribute);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher(mv.getView());
-                    dispatcher.forward(request, response);
+                    String view = mv.getView();
+                    // Si la vue est un fichier HTML, on sert le fichier statique correspondant
+                    if (view != null && view.endsWith(".html")) {
+                        ServletContext context = request.getServletContext();
+                        String staticPath = "/" + view;
+                        java.io.InputStream is = context.getResourceAsStream(staticPath);
+                        if (is != null) {
+                            response.setContentType("text/html;charset=UTF-8");
+                            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(is));
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                response.getWriter().println(line);
+                            }
+                            reader.close();
+                            return;
+                        }
+                    }
+                    // Sinon, rendu classique
+                    etu.sprint.view.ViewResolver viewResolver = new etu.sprint.view.ViewResolver();
+                    viewResolver.render(mv, request.getServletContext(), response);
                 }
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

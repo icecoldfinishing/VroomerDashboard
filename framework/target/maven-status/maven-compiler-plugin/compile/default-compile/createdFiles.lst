@@ -13,6 +13,7 @@ etu\sprint\util\ClassScanner.class
 etu\sprint\model\HttpMethod.class
 etu\sprint\model\MethodInfo.class
 etu\sprint\web\FrontServlet.class
+etu\sprint\view\ViewResolver.class
 etu\sprint\model\ControllerMethod.class
 connexion\Connexion.class
 etu\sprint\annotation\PostMapping.class

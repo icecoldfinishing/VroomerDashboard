@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiffre d'Affaire - Compagnies Fly & Co</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
+
+    <!-- CSS principaux -->
+    <link rel="stylesheet" th:href="@{/assets/extensions/simple-datatables/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/table-datatable.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+    <link rel="stylesheet" th:href="@{/assets/compiled/css/iconly.css}">
+</head>
+
+<body>
+    <script th:src="@{/assets/static/js/initTheme.js}"></script>
+    <div id="app">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Compagnies</h3>
+                            <p class="text-subtitle text-muted">Liste des compagnies et leur chiffre d'affaires</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/home">Fly</a></li>
+                                    <li class="breadcrumb-item" aria-current="page">& Co</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Filtrer les réservations / Chiffre d'affaires</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="/compagnies/ca" method="post">
+                                <div class="row">
+
+                                    <!-- Filtrer par Compagnie -->
+                                    <div class="col-md-3 mb-3">
+                                        <div class="form-group">
+                                            <label for="compagnieId">Compagnie</label>
+                                            <select class="form-select" id="compagnieId" name="compagnieId">
+                                                <option value="" selected>Toutes les compagnies</option>
+                                                <option th:each="c : ${compagnies}" 
+                                                        th:value="${c.idCompagnie}" 
+                                                        th:text="${c.nom}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Filtrer par Avion -->
+                                    <div class="col-md-3 mb-3">
+                                        <div class="form-group">
+                                            <label for="avionId">Avion</label>
+                                            <select class="form-select" id="avionId" name="avionId">
+                                                <option value="" selected>Tous les avions</option>
+                                                <option th:each="a : ${avions}" 
+                                                        th:value="${a.idAvion}" 
+                                                        th:text="${a.modele} + ' (' + ${a.numeroImmatriculation} + ')'">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Filtrer par Vol -->
+                                    <div class="col-md-3 mb-3">
+                                        <div class="form-group">
+                                            <label for="volId">Vol</label>
+                                            <select class="form-select" id="volId" name="volId">
+                                                <option value="" selected>Tous les vols</option>
+                                                <option th:each="v : ${vols}" 
+                                                        th:value="${v.idVol}" 
+                                                        th:text="'Vol #' + ${v.idVol}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Filtrer par Vol Instance -->
+                                    <div class="col-md-3 mb-3">
+                                        <div class="form-group">
+                                            <label for="volInstanceId">Vol Instance</label>
+                                            <select class="form-select" id="volInstanceId" name="volInstanceId">
+                                                <option value="" selected>Toutes les instances</option>
+                                                <option th:each="vi : ${volInstances}" 
+                                                        th:value="${vi.idVolInstance}" 
+                                                        th:text="${vi.dateDepart} + ' -> ' + ${vi.dateArrivee}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Filtrer par Date Paiement -->
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="startDate">Date de début</label>
+                                            <input type="date" class="form-control" id="startDate" name="startDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="endDate">Date de fin</label>
+                                            <input type="date" class="form-control" id="endDate" name="endDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Rechercher</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Détails des Chiffres d'Affaire</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>ID Paiement</th>
+                                        <th>ID Compagnie</th>
+                                        <th>Nom Compagnie</th>
+                                        <th>ID Avion</th>
+                                        <th>Modèle Avion</th>
+                                        <th>Numéro Immatriculation</th>
+                                        <th>ID Vol</th>
+                                        <th>ID Vol Instance</th>
+                                        <th>Date Départ</th>
+                                        <th>Date Arrivée</th>
+                                        <th>Montant Payé (MGA)</th>
+                                        <th>Date Paiement</th>
+                                        <th>Statut Paiement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="ca : ${caList}">
+                                        <td th:text="${ca.idPaiement}"></td>
+                                        <td th:text="${ca.idCompagnie}"></td>
+                                        <td th:text="${ca.nomCompagnie}"></td>
+                                        <td th:text="${ca.idAvion}"></td>
+                                        <td th:text="${ca.avionModele}"></td>
+                                        <td th:text="${ca.numeroImmatriculation}"></td>
+                                        <td th:text="${ca.idVol}"></td>
+                                        <td th:text="${ca.idVolInstance}"></td>
+                                        <td th:text="${#temporals.format(ca.dateDepart, 'dd/MM/yyyy HH:mm')}"></td>
+                                        <td th:text="${#temporals.format(ca.dateArrivee, 'dd/MM/yyyy HH:mm')}"></td>
+                                        <td th:text="${ca.montantPaye}"></td>
+                                        <td th:text="${#temporals.format(ca.datePaiement, 'dd/MM/yyyy HH:mm')}"></td>
+                                        <td th:text="${ca.statutPaiement}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2023 &copy; Fly & Co</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script th:src="@{/assets/compiled/js/app.js}"></script>
+    <script th:src="@{/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/assets/extensions/simple-datatables/umd/simple-datatables.js}"></script>
+    <script th:src="@{/assets/static/js/pages/simple-datatables.js}"></script>
+</body>
+</html>

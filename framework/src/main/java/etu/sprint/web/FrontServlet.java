@@ -74,16 +74,18 @@ public class FrontServlet extends HttpServlet {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        if (path.isEmpty()) {
-            path = "/";
-        } else if (path.length() > 1 && path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
+        // Check if it's a static resource
+        if (isStaticResource(path)) {
+            try {
+                getServletContext().getNamedDispatcher("default").forward(request, response);
+                return;
+            } catch (Exception e) {
+                // Ignore and proceed to 404
+            }
         }
 
-        // Map clean URLs to corresponding .html views
-        if (!path.contains(".")) {
-            path = "/views" + path + ".html";
-        }
+        // Path is used directly for matching routes
+        // Do NOT transform path before route matching
 
         HttpMethod requestMethod = HttpMethod.valueOf(request.getMethod().toUpperCase());
 
@@ -152,5 +154,23 @@ public class FrontServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("Internal server error: No controller method found for " + requestMethod + " " + path);
         }
+    }
+
+    private boolean isStaticResource(String path) {
+        // Check common static resource paths and extensions
+        return path.startsWith("/assets/") || 
+               path.startsWith("/static/") || 
+               path.endsWith(".css") || 
+               path.endsWith(".js") || 
+               path.endsWith(".png") || 
+               path.endsWith(".jpg") || 
+               path.endsWith(".jpeg") || 
+               path.endsWith(".gif") || 
+               path.endsWith(".ico") || 
+               path.endsWith(".svg") || 
+               path.endsWith(".woff") || 
+               path.endsWith(".woff2") || 
+               path.endsWith(".ttf") || 
+               path.endsWith(".eot");
     }
 }
