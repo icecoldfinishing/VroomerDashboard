@@ -20,6 +20,7 @@ etu\sprint\annotation\PostMapping.class
 etu\sprint\annotation\RequestParameter.class
 etu\sprint\model\FileUpload.class
 etu\sprint\model\ModelView.class
+etu\sprint\annotation\RequestParam.class
 etu\sprint\annotation\PatchMapping.class
 etu\sprint\util\JsonConverter.class
 etu\sprint\model\DataObject.class

@@ -21,54 +21,7 @@
     <script src="/assets/static/js/initTheme.js"></script>
 
     <div id="app">
-        <!-- Sidebar -->
-        <!-- Sidebar statique -->
-        <div id="sidebar">
-            <div class="sidebar-wrapper">
-                <div class="sidebar-header position-relative">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="logo">
-                            <a href="/index.html"><img src="/assets/compiled/svg/logo.svg" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
-                            <!-- ...existing code... -->
-                        </div>
-                        <div class="sidebar-toggler  x">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
-                        <li class="sidebar-item">
-                            <a href="/home" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-ticket-fill"></i>
-                                <span>Reservation</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item  ">
-                                    <a href="/reservations/list" class="submenu-link">list</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-title">Session</li>
-                        <li class="sidebar-item">
-                            <a href="/logout" class="sidebar-link">
-                                <i class="bi bi-door-open-fill"></i>
-                                <span>Déconnexion</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <framework:include src="fragments/sidebar.html"/>
 
         <div id="main">
             <header class="mb-3">
