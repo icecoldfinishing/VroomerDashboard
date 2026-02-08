@@ -74,8 +74,8 @@ public class FrontServlet extends HttpServlet {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        // Check if it's a static resource
-        if (isStaticResource(path)) {
+        // Always forward static resources to default servlet
+        if (isStaticResource(path) || getServletContext().getResource(path) != null) {
             try {
                 getServletContext().getNamedDispatcher("default").forward(request, response);
                 return;

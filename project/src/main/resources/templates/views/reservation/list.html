@@ -5,24 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataTable - Mazer Admin Dashboard</title>
-
     <!-- Favicon -->
-    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
-
-    <!-- CSS -->
-    <link rel="stylesheet" th:href="@{/assets/extensions/simple-datatables/style.css}">
-    <link rel="stylesheet" th:href="@{/assets/compiled/css/table-datatable.css}">
-    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
-    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+    <link rel="shortcut icon" href="/assets/compiled/svg/favicon.svg" type="image/x-icon">
+    <!-- CSS principaux -->
+    <link rel="stylesheet" href="/assets/compiled/css/app.css">
+    <link rel="stylesheet" href="/assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" href="/assets/extensions/simple-datatables/style.css">
+    <link rel="stylesheet" href="/assets/compiled/css/table-datatable.css">
 </head>
 
 <body>
     <!-- JS Init -->
-    <script th:src="@{/assets/static/js/initTheme.js}"></script>
+    <script src="/assets/static/js/initTheme.js"></script>
 
     <div id="app">
         <!-- Sidebar -->
-        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+        <!-- Add sidebar HTML here if needed -->
+                                    <li class="breadcrumb-item"><a href="/home">fly</a></li>
 
         <div id="main">
             <header class="mb-3">
@@ -67,13 +66,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="reservation : ${reservations}">
-                                        <td th:text="${reservation.id}"></td>
-                                        <td th:text="${reservation.client != null ? reservation.client.nom : 'N/A'}"></td>
-                                        <td th:text="${reservation.hotel != null ? reservation.hotel.nom : 'N/A'}"></td>
-                                        <td th:text="${reservation.nbPassager}"></td>
-                                        <td th:text="${#temporals.format(reservation.dateheure, 'dd/MM/yyyy HH:mm')}"></td>
-                                    </tr>
+                                    <framework:foreach items="${reservations}" var="reservation">
+                                        <tr>
+                                            <td>${reservation.id}</td>
+                                            <td>${reservation.client.nom}</td>
+                                            <td>${reservation.hotel.nom}</td>
+                                            <td>${reservation.nbPassager}</td>
+                                            <td>${reservation.dateheure}</td>
+                                        </tr>
+                                    </framework:foreach>
                                 </tbody>
                             </table>
                         </div>
@@ -96,11 +97,11 @@
     </div>
 
     <!-- JS Scripts -->
-    <script th:src="@{/assets/static/js/components/dark.js}"></script>
-    <script th:src="@{/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
-    <script th:src="@{/assets/compiled/js/app.js}"></script>
-    <script th:src="@{/assets/extensions/simple-datatables/umd/simple-datatables.js}"></script>
-    <script th:src="@{/assets/static/js/pages/simple-datatables.js}"></script>
+    <script src="/assets/static/js/components/dark.js"></script>
+    <script src="/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/compiled/js/app.js"></script>
+    <script src="/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="/assets/static/js/pages/simple-datatables.js"></script>
 </body>
 
 </html>

@@ -5,4 +5,4 @@ set -euo pipefail
 # Spring Boot inclut Tomcat embarqué, pas besoin de télécharger Tomcat
 
 # Render injecte PORT, l'app utilise ${PORT:8089} via application.properties
-exec java -jar project/target/vroomer-1.0.0.jar
+exec java -jar project/target/andco-0.0.1-SNAPSHOT.jar

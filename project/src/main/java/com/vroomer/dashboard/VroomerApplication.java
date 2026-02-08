@@ -2,11 +2,17 @@ package com.vroomer.dashboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import etu.sprint.web.FrontServlet;
 
 @SpringBootApplication
+@ComponentScan({
+	"com.vroomer.dashboard.controller",
+	"com.vroomer.dashboard.service",
+	"com.vroomer.dashboard.repository"
+})
 public class VroomerApplication {
 
 	public static void main(String[] args) {

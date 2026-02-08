@@ -7,22 +7,68 @@
     <title>DataTable - Mazer Admin Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" th:href="@{/assets/compiled/svg/favicon.svg}" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/compiled/svg/favicon.svg" type="image/x-icon">
 
-    <!-- CSS -->
-    <link rel="stylesheet" th:href="@{/assets/extensions/simple-datatables/style.css}">
-    <link rel="stylesheet" th:href="@{/assets/compiled/css/table-datatable.css}">
-    <link rel="stylesheet" th:href="@{/assets/compiled/css/app.css}">
-    <link rel="stylesheet" th:href="@{/assets/compiled/css/app-dark.css}">
+    <!-- CSS principaux -->
+    <link rel="stylesheet" href="/assets/compiled/css/app.css">
+    <link rel="stylesheet" href="/assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" href="/assets/extensions/simple-datatables/style.css">
+    <link rel="stylesheet" href="/assets/compiled/css/table-datatable.css">
 </head>
 
 <body>
     <!-- JS Init -->
-    <script th:src="@{/assets/static/js/initTheme.js}"></script>
+    <script src="/assets/static/js/initTheme.js"></script>
 
     <div id="app">
         <!-- Sidebar -->
-        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+        <!-- Sidebar statique -->
+        <div id="sidebar">
+            <div class="sidebar-wrapper">
+                <div class="sidebar-header position-relative">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="logo">
+                            <a href="/index.html"><img src="/assets/compiled/svg/logo.svg" alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
+                            <!-- ...existing code... -->
+                        </div>
+                        <div class="sidebar-toggler  x">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-item">
+                            <a href="/home" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-ticket-fill"></i>
+                                <span>Reservation</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item  ">
+                                    <a href="/reservations/list" class="submenu-link">list</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-title">Session</li>
+                        <li class="sidebar-item">
+                            <a href="/logout" class="sidebar-link">
+                                <i class="bi bi-door-open-fill"></i>
+                                <span>Déconnexion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <div id="main">
             <header class="mb-3">
@@ -41,15 +87,14 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a th:href="@{/home}">fly</a></li>
+                                    <li class="breadcrumb-item"><a href="/home">fly</a></li>
                                     <li class="breadcrumb-item" aria-current="page">& co</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
-                <!-- Simple reservation list only -->
-
+                <!-- Reservation table -->
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
@@ -68,19 +113,20 @@
                                 </thead>
                                 <tbody>
                                     <framework:foreach items="${reservations}" var="reservation">
-                                    <tr>
-                                        <td>${reservation.id}</td>
-                                        <td>${reservation.client.nom}</td>
-                                        <td>${reservation.hotel.nom}</td>
-                                        <td>${reservation.nbPassager}</td>
-                                        <td>${reservation.dateheure}</td>
-                                    </tr>
+                                        <tr>
+                                            <td>${reservation.id}</td>
+                                            <td>${reservation.client.nom}</td>
+                                            <td>${reservation.hotel.nom}</td>
+                                            <td>${reservation.nbPassager}</td>
+                                            <td>${reservation.dateheure}</td>
+                                        </tr>
                                     </framework:foreach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </section>
+
             </div>
 
             <footer>
@@ -97,12 +143,12 @@
         </div>
     </div>
 
-    <!-- JS Scripts -->
-    <script th:src="@{/assets/static/js/components/dark.js}"></script>
-    <script th:src="@{/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
-    <script th:src="@{/assets/compiled/js/app.js}"></script>
-    <script th:src="@{/assets/extensions/simple-datatables/umd/simple-datatables.js}"></script>
-    <script th:src="@{/assets/static/js/pages/simple-datatables.js}"></script>
+    <!-- Scripts JS -->
+    <script src="/assets/static/js/components/dark.js"></script>
+    <script src="/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/compiled/js/app.js"></script>
+    <script src="/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="/assets/static/js/pages/simple-datatables.js"></script>
 </body>
 
 </html>

@@ -8,15 +8,18 @@ import etu.sprint.annotation.GetMapping;
 
 import java.util.List;
 
+@org.springframework.stereotype.Component
 @AnnotationController("/reservations")
 public class ReservationController {
+    @org.springframework.beans.factory.annotation.Autowired
     private ReservationService reservationService;
+
 
     @GetMapping("/list")
     public ModelView listReservations() {
         List<Reservation> reservations = reservationService.getAll();
         ModelView mv = new ModelView();
-        mv.setView("/templates/views/reservation/list.html");
+        mv.setView("views/reservation/list.html"); 
         mv.addItem("reservations", reservations);
         return mv;
     }

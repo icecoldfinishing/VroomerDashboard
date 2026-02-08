@@ -26,15 +26,13 @@ public class ViewResolver {
         }
 
         // Try multiple locations to find the view
-        // 1. Direct path from context root
-        // 2. In /static/ folder (Spring Boot default)
-        // 3. In /WEB-INF/views/
         String[] pathsToTry = {
             viewPath,
             "/static" + viewPath,
-            "/WEB-INF/views" + viewPath
+            "/WEB-INF/views" + viewPath,
+            "/templates" + viewPath // Spring Boot/Thymeleaf default
         };
-        
+
         InputStream is = null;
         String usedPath = null;
         
@@ -43,6 +41,18 @@ public class ViewResolver {
             if (is != null) {
                 usedPath = path;
                 break;
+            }
+        }
+
+        // Fallback: Try ClassLoader (useful for packaged JARs/Spring Boot)
+        if (is == null) {
+            String classLoaderPath = "templates" + viewPath; // e.g. templates/views/reservation/list.html
+            if (classLoaderPath.startsWith("/")) {
+                classLoaderPath = classLoaderPath.substring(1);
+            }
+            is = Thread.currentThread().getContextClassLoader().getResourceAsStream(classLoaderPath);
+            if (is != null) {
+                usedPath = "classpath:" + classLoaderPath;
             }
         }
         
@@ -96,13 +106,14 @@ public class ViewResolver {
             String loopBody = loopMatcher.group(3);
             
             Object listObj = data.get(listName);
+            
             if (listObj instanceof Collection<?>) {
                 Collection<?> collection = (Collection<?>) listObj;
                 for (Object item : collection) {
                     Map<String, Object> loopData = new HashMap<>(data);
                     loopData.put(varName, item);
-                    // Recursively process variables inside the loop body
-                    result.append(processVariables(loopBody, loopData));
+                    String processedBody = processVariables(loopBody, loopData);
+                    result.append(processedBody);
                 }
             }
             
