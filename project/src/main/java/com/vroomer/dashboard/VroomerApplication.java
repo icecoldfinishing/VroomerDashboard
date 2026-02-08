@@ -21,7 +21,7 @@ public class VroomerApplication {
 
 	@Bean
 	public ServletRegistrationBean<FrontServlet> frontServletRegistration() {
-		String[] mappings = {"/home/*", "/home", "/home/", "/reservations/*", "/reservations", "/reservations/"};
+		String[] mappings = {"/home/*","/reservations/*","/api/*"};
 		ServletRegistrationBean<FrontServlet> registration = new ServletRegistrationBean<>(new FrontServlet(), mappings);
 		registration.setName("FrontServlet");
 		registration.setLoadOnStartup(1);

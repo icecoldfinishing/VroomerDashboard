@@ -16,8 +16,13 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
 
 
+
     public List<Reservation> getAll() {
         return reservationRepository.findAll();
+    }
+
+    public List<Reservation> findBetweenDates(java.time.LocalDateTime start, java.time.LocalDateTime end) {
+        return reservationRepository.findByDateheureBetween(start, end);
     }
 
     public Reservation save(Reservation reservation) {

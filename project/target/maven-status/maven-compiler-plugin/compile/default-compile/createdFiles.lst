@@ -10,5 +10,6 @@ com\vroomer\dashboard\controller\login\HelloController.class
 com\vroomer\dashboard\VroomerApplication.class
 com\vroomer\dashboard\service\client\ClientService.class
 com\vroomer\dashboard\repository\client\ClientRepository.class
+com\vroomer\dashboard\controller\reservation\ReservationApiController.class
 com\vroomer\dashboard\model\hotel\Hotel.class
 com\vroomer\dashboard\repository\hotel\HotelRepository.class

@@ -33,18 +33,7 @@ public class ReservationController {
     private com.vroomer.dashboard.service.client.ClientService clientService;
     
 
-
-    @RestAPI
-    @GetMapping("/api")
-    public List<ReservationDTO> listReservationsApi() {
-        List<Reservation> reservations = reservationService.getAll();
-        List<ReservationDTO> dtos = new java.util.ArrayList<>();
-        for (Reservation r : reservations) {
-            dtos.add(new ReservationDTO(r));
-        }
-        return dtos;
-    }
-    @GetMapping("/list")
+    @GetMapping("")
     public ModelView listReservations() {
         List<Reservation> reservations = reservationService.getAll();
         ModelView mv = new ModelView();
@@ -61,6 +50,7 @@ public class ReservationController {
         mv.addItem("clients", clientService.getAll());
         return mv;
     }
+    
     @PostMapping("/insert")
     public ModelView insertReservation(
         @RequestParameter("clientId") Long clientId,
