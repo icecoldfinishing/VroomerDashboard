@@ -19,7 +19,10 @@ import java.util.regex.Pattern;
 
 public class ViewResolver {
 
+    private ServletContext servletContext;
+
     public void render(ModelView modelView, ServletContext context, HttpServletResponse response) throws IOException {
+        this.servletContext = context;
         String viewPath = modelView.getView();
         if (!viewPath.startsWith("/")) {
             viewPath = "/" + viewPath;
@@ -46,7 +49,13 @@ public class ViewResolver {
 
         // Fallback: Try ClassLoader (useful for packaged JARs/Spring Boot)
         if (is == null) {
-            String classLoaderPath = "templates" + viewPath; // e.g. templates/views/reservation/list.html
+            // If path already starts with /templates, don't prepend again
+            String classLoaderPath;
+            if (viewPath.startsWith("/templates/")) {
+                classLoaderPath = viewPath.substring(1); // remove leading /
+            } else {
+                classLoaderPath = "templates" + viewPath;
+            }
             if (classLoaderPath.startsWith("/")) {
                 classLoaderPath = classLoaderPath.substring(1);
             }
@@ -56,7 +65,7 @@ public class ViewResolver {
             }
         }
         
-        // Fallback: Try ClassLoader (useful for packaged JARs/Spring Boot)
+        // Fallback: Try ClassLoader with static prefix
         if (is == null) {
             String classLoaderPath = "static" + viewPath; // e.g. static/pages/reservation.html
             if (classLoaderPath.startsWith("/")) {
@@ -91,22 +100,35 @@ public class ViewResolver {
     }
 
     private String processTemplate(String content, Map<String, Object> data) {
-        // 1. Process Foreach Loops: <framework:foreach items="${list}" var="item"> ... </framework:foreach>
+        // 1. Process <framework:include src="..."/> tags (top-level only)
+        Pattern includePattern = Pattern.compile("<framework:include\\s+src=\"([^\"]+)\"\\s*/?>", Pattern.DOTALL);
+        Matcher includeMatcher = includePattern.matcher(content);
+        StringBuilder includeResult = new StringBuilder();
+        int lastIncludeEnd = 0;
+        while (includeMatcher.find()) {
+            includeResult.append(content, lastIncludeEnd, includeMatcher.start());
+            String fragmentPath = includeMatcher.group(1);
+            String fragmentContent = loadFragment(fragmentPath);
+            if (fragmentContent != null) {
+                includeResult.append(fragmentContent);
+            } else {
+                includeResult.append("<!-- Fragment not found: " + fragmentPath + " -->");
+            }
+            lastIncludeEnd = includeMatcher.end();
+        }
+        includeResult.append(content.substring(lastIncludeEnd));
+
+        // 2. Process Foreach Loops: <framework:foreach items="${list}" var="item"> ... </framework:foreach>
         Pattern loopPattern = Pattern.compile("<framework:foreach\\s+items=\"\\$\\{(\\w+)}\"\\s+var=\"(\\w+)\">(.*?)</framework:foreach>", Pattern.DOTALL);
-        Matcher loopMatcher = loopPattern.matcher(content);
-        
+        Matcher loopMatcher = loopPattern.matcher(includeResult.toString());
         StringBuilder result = new StringBuilder();
         int lastMatchEnd = 0;
-
         while (loopMatcher.find()) {
-            result.append(content, lastMatchEnd, loopMatcher.start());
-            
+            result.append(includeResult.toString(), lastMatchEnd, loopMatcher.start());
             String listName = loopMatcher.group(1);
             String varName = loopMatcher.group(2);
             String loopBody = loopMatcher.group(3);
-            
             Object listObj = data.get(listName);
-            
             if (listObj instanceof Collection<?>) {
                 Collection<?> collection = (Collection<?>) listObj;
                 for (Object item : collection) {
@@ -116,15 +138,58 @@ public class ViewResolver {
                     result.append(processedBody);
                 }
             }
-            
             lastMatchEnd = loopMatcher.end();
         }
-        result.append(content.substring(lastMatchEnd));
+        result.append(includeResult.toString().substring(lastMatchEnd));
 
-        // 2. Process remaining variables in the main content
+        // 3. Process remaining variables in the main content
         return processVariables(result.toString(), data);
     }
 
+    // Loads fragment content from servlet context or classpath
+    private String loadFragment(String fragmentPath) {
+        String normalizedPath = fragmentPath;
+        if (!normalizedPath.startsWith("/")) {
+            normalizedPath = "/" + normalizedPath;
+        }
+        InputStream is = null;
+
+        // 1. Try ServletContext with multiple paths
+        if (this.servletContext != null) {
+            String[] pathsToTry = {
+                normalizedPath,
+                "/templates" + normalizedPath,
+                "/WEB-INF" + normalizedPath
+            };
+            for (String path : pathsToTry) {
+                is = this.servletContext.getResourceAsStream(path);
+                if (is != null) break;
+            }
+        }
+
+        // 2. Fallback: classloader (for JAR deployment)
+        if (is == null) {
+            String classLoaderPath = "templates" + normalizedPath;
+            if (classLoaderPath.startsWith("/")) {
+                classLoaderPath = classLoaderPath.substring(1);
+            }
+            is = Thread.currentThread().getContextClassLoader().getResourceAsStream(classLoaderPath);
+        }
+
+        if (is == null) {
+            return null;
+        }
+        StringBuilder fragmentContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fragmentContent.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            return null;
+        }
+        return fragmentContent.toString();
+    }
     private String processVariables(String content, Map<String, Object> data) {
         // Match ${variable} or ${variable.field}
         Pattern variablePattern = Pattern.compile("\\$\\{([\\w.]+)}");
