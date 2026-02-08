@@ -1,6 +1,7 @@
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\config\SpringContextInitializer.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\login\HelloController.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\reservation\ReservationController.java
+D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\dto\ReservationDTO.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\client\Client.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\hotel\Hotel.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\reservation\Reservation.java

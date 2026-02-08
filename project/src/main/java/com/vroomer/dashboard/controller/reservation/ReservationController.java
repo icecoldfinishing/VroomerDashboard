@@ -3,7 +3,9 @@ package com.vroomer.dashboard.controller.reservation;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+
 import java.util.List;
+import com.vroomer.dashboard.dto.ReservationDTO;
 
 import com.vroomer.dashboard.model.hotel.Hotel;
 import com.vroomer.dashboard.model.client.Client;
@@ -15,6 +17,7 @@ import etu.sprint.annotation.AnnotationController;
 import etu.sprint.annotation.GetMapping;
 import etu.sprint.annotation.PostMapping;
 import etu.sprint.annotation.RequestParameter;
+import etu.sprint.annotation.RestAPI;
 
 
 @org.springframework.stereotype.Component
@@ -22,13 +25,25 @@ import etu.sprint.annotation.RequestParameter;
 public class ReservationController {
     @org.springframework.beans.factory.annotation.Autowired
     private ReservationService reservationService;
-
+    
     @org.springframework.beans.factory.annotation.Autowired
     private com.vroomer.dashboard.service.hotel.HotelService hotelService;
     
     @org.springframework.beans.factory.annotation.Autowired
     private com.vroomer.dashboard.service.client.ClientService clientService;
     
+
+
+    @RestAPI
+    @GetMapping("/api")
+    public List<ReservationDTO> listReservationsApi() {
+        List<Reservation> reservations = reservationService.getAll();
+        List<ReservationDTO> dtos = new java.util.ArrayList<>();
+        for (Reservation r : reservations) {
+            dtos.add(new ReservationDTO(r));
+        }
+        return dtos;
+    }
     @GetMapping("/list")
     public ModelView listReservations() {
         List<Reservation> reservations = reservationService.getAll();

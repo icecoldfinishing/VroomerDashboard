@@ -3,6 +3,7 @@ com\vroomer\dashboard\config\SpringContextInitializer.class
 com\vroomer\dashboard\service\reservation\ReservationService.class
 com\vroomer\dashboard\controller\reservation\ReservationController.class
 com\vroomer\dashboard\repository\reservation\ReservationRepository.class
+com\vroomer\dashboard\dto\ReservationDTO.class
 com\vroomer\dashboard\model\reservation\Reservation.class
 com\vroomer\dashboard\service\hotel\HotelService.class
 com\vroomer\dashboard\controller\login\HelloController.class

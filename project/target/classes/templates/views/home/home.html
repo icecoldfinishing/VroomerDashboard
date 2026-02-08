@@ -22,12 +22,43 @@
 <body>
     <script src="/assets/static/js/initTheme.js"></script>
     <div id="app">
-        <div class="d-flex">
-            <framework:include src="fragments/sidebar.html"/>
-            <div class="flex-grow-1" style="min-width:0;">
-                <div id="main">
-                    <div class="container-fluid">
+        <framework:include src="fragments/sidebar.html"/>
+        
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <h3>Home</h3>
+            </div> 
+
+            <div class="page-content"> 
+                
+                <section class="row">
+                    <div class="col-12 col-lg-9">
                         <div class="row">
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <a href="/avions/ca" style="text-decoration: none; color: inherit;">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                    <div class="stats-icon purple mb-2">
+                                                        <i class="bi-airplane"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">Vol</h6>
+                                                    <h6 class="font-extrabold mb-0">Verifier les vols</h6>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                             <div class="col-6 col-lg-3 col-md-6">
                                 <a href="/flights/search" style="text-decoration: none; color: inherit;">
                                     <div class="card">
@@ -81,37 +112,38 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-3">
-                                <div class="card">
-                                    <div class="card-body py-4 px-4">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-xl">
-                                                <img src="./assets/compiled/jpg/1.jpg" alt="Face 1">
-                                            </div>
-                                            <div class="ms-3 name">
-                                                <h5 class="font-bold">Rohy Rajaonarivelo</h5>
-                                                <h6 class="text-muted mb-0">@icecoldfinishing</h6>
-                                            </div>
-                                        </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <div class="card">
+                            <div class="card-body py-4 px-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-xl">
+                                        <img src="./assets/compiled/jpg/1.jpg" alt="Face 1">
+                                    </div>
+                                    <div class="ms-3 name">
+                                        <h5 class="font-bold">Rohy Rajaonarivelo</h5>
+                                        <h6 class="text-muted mb-0">@icecoldfinishing</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <footer>
-                        <div class="footer clearfix mb-0 text-muted">
-                            <div class="float-start">
-                                <p>2023 &copy; Mazer</p>
-                            </div>
-                            <div class="float-end">
-                                <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                                    by <a href="https://saugi.me">Saugi</a></p>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
+                </section>
             </div>
-        </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2023 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div> <!-- fin de main -->
     </div>
 
 
