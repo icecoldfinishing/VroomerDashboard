@@ -56,15 +56,23 @@ INSERT INTO client (nom) VALUES
 
 -- Insertion d'hôtels
 INSERT INTO hotel (nom) VALUES
-('Hotel Central'),
-('Grand Palace'),
-('Sunset Resort'),
-('Ocean View'),
-('Mountain Lodge');
+('Colbert'),
+('Novotel'),
+('Ibis'),
+('Lokanga');
 
 -- Insertion de réservations (aléatoires)
 INSERT INTO reservation (id_client, nb_passager, dateheure, id_hotel) VALUES
-(1, 2, '2026-02-07 10:00:00', 1),
-(2, 4, '2026-02-08 12:30:00', 2),
-(3, 1, '2026-02-09 09:15:00', 3),
-(4, 3, '2026-02-10 14:45:00', 4);
+(1, 11, '2026-02-05 00:01:00', 3),
+(2, 1, '2026-02-05 23:55:00', 3),
+(3, 2, '2026-02-09 10:17:00', 1),
+(4, 4, '2026-02-01 15:25:00', 2),
+(5, 4, '2026-01-28 07:11:00', 1),
+(6, 5, '2026-01-28 07:45:00', 1),
+(7, 13, '2026-02-28 08:25:00', 2),
+(8, 8, '2026-02-28 13:00:00', 2),
+(9, 7, '2026-02-15 13:00:00', 1),
+(10, 1, '2026-02-18 22:55:00', 4);
+
+
+
