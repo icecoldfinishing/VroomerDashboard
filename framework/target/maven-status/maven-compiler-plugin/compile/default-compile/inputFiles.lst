@@ -13,6 +13,7 @@ D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\model\RouteMat
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\RequestParameter.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\DeleteMapping.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\connexion\Connexion.java
+D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\util\TokenValidator.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\util\TypeConverter.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\Session.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\Token.java

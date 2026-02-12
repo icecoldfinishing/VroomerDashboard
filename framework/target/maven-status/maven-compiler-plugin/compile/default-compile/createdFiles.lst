@@ -13,6 +13,7 @@ etu\sprint\util\ClassScanner.class
 etu\sprint\annotation\Token.class
 etu\sprint\model\HttpMethod.class
 etu\sprint\model\MethodInfo.class
+etu\sprint\util\TokenValidator.class
 etu\sprint\web\FrontServlet.class
 etu\sprint\view\ViewResolver.class
 etu\sprint\model\ControllerMethod.class

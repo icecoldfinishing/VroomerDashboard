@@ -12,8 +12,7 @@ import etu.sprint.web.FrontServlet;
 	"com.vroomer.dashboard.controller",
 	"com.vroomer.dashboard.service",
 	"com.vroomer.dashboard.repository",
-	"com.vroomer.dashboard.config",
-	"com.vroomer.dashboard.model"
+	"com.vroomer.dashboard.config"
 })
 public class VroomerApplication {
 
@@ -27,7 +26,7 @@ public class VroomerApplication {
 		ServletRegistrationBean<FrontServlet> registration = new ServletRegistrationBean<>(new FrontServlet(), mappings);
 		registration.setName("FrontServlet");
 		registration.setLoadOnStartup(1);
-		registration.addInitParameter("controller-package", "com.vroomer.dashboard.controller.login;com.vroomer.dashboard.controller.reservation;com.vroomer.dashboard.controller.token");
+		registration.addInitParameter("controller-package", "com.vroomer.dashboard.controller.login;com.vroomer.dashboard.controller.reservation");
 		return registration;
 	}
 }

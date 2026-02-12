@@ -14,6 +14,7 @@ import etu.sprint.model.Session;
 import etu.sprint.annotation.RestAPI;
 import etu.sprint.annotation.Authorized;
 import etu.sprint.annotation.Token;
+import etu.sprint.util.TokenValidator;
 import etu.sprint.model.JsonResponse;
 import etu.sprint.util.JsonConverter;
 import etu.sprint.util.AuthorizationManager;
@@ -530,21 +531,9 @@ public class HandlerAdapter {
                     response.getWriter().print("{\"status\":\"error\",\"code\":401,\"message\":\"Token manquant dans le header Authorization\",\"data\":null}");
                     return;
                 }
-                // Valider le token via ApiTokenService (Spring bean)
-                boolean tokenValid = false;
+                // Valider le token via TokenValidator du framework (JDBC direct)
                 Object appCtx = getSpringApplicationContext(request.getServletContext());
-                if (appCtx != null) {
-                    try {
-                        Class<?> serviceClass = Class.forName("com.vroomer.dashboard.service.token.ApiTokenService");
-                        java.lang.reflect.Method getBeanMethod = appCtx.getClass().getMethod("getBean", Class.class);
-                        Object tokenService = getBeanMethod.invoke(appCtx, serviceClass);
-                        java.lang.reflect.Method isValidMethod = serviceClass.getMethod("isTokenValid", String.class);
-                        tokenValid = (boolean) isValidMethod.invoke(tokenService, authToken);
-                    } catch (Exception e) {
-                        System.err.println("[HandlerAdapter] Erreur lors de la validation du token: " + e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
+                boolean tokenValid = TokenValidator.isTokenValid(appCtx, authToken);
                 if (!tokenValid) {
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
