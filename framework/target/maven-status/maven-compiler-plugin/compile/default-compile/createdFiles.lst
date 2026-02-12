@@ -10,6 +10,7 @@ etu\sprint\annotation\Authorized.class
 etu\sprint\util\AuthorizationManager.class
 etu\sprint\annotation\RequestMapping.class
 etu\sprint\util\ClassScanner.class
+etu\sprint\annotation\Token.class
 etu\sprint\model\HttpMethod.class
 etu\sprint\model\MethodInfo.class
 etu\sprint\web\FrontServlet.class

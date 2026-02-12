@@ -63,3 +63,19 @@ INSERT INTO reservation (id_client, nb_passager, dateheure, id_hotel) VALUES
 (2, 4, '2026-02-08 12:30:00', 2),
 (3, 1, '2026-02-09 09:15:00', 3),
 (4, 3, '2026-02-10 14:45:00', 4);
+
+-- =========================
+-- TABLE TOKEN (Sécurité API)
+-- =========================
+CREATE TABLE token (
+	id_token SERIAL PRIMARY KEY,
+	token VARCHAR(255) NOT NULL UNIQUE,
+	datetime_exp TIMESTAMP NOT NULL
+);
+
+-- Insertion de tokens de test
+INSERT INTO token (token, datetime_exp) VALUES
+('FRONT-KEY-PUBLIC', '2027-02-12 23:59:59'),
+('FRONT-KEY-DEV', '2027-06-30 23:59:59'),
+('FRONT-KEY-TEST', '2027-12-31 23:59:59'),
+('FRONT-KEY-EXPIRED', '2025-01-01 00:00:00');
