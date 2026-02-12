@@ -1,4 +1,5 @@
 /project/build/
-
-
-
+/project/docker/postgres/Dockerfile
+/project/src/main/resources/application.properties
+/project/target
+/project/script.bat
