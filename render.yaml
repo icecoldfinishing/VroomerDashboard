@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: vroomer
+    runtime: docker
+    rootDir: .
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      # Link Render Managed PostgreSQL to inject PG* vars used by Spring Boot
+      - key: PGHOST
+        fromDatabase:
+          name: vroomer-db
+          property: host
+      - key: PGPORT
+        fromDatabase:
+          name: vroomer-db
+          property: port
+      - key: PGUSER
+        fromDatabase:
+          name: vroomer-db
+          property: user
+      - key: PGPASSWORD
+        fromDatabase:
+          name: vroomer-db
+          property: password
+      - key: PGDATABASE
+        fromDatabase:
+          name: vroomer-db
+          property: database
+
+databases:
+  - name: vroomer-db
+    databaseName: vroomer_db
+    plan: free
+    ipAllowList: []
