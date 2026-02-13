@@ -1,0 +1,5 @@
+curl http://localhost:8089/api/reservations
+
+curl -H "Authorization: FRONT-KEY-PUBLIC" http://localhost:8089/api/reservations
+
+curl -H "Authorization: FRONT-KEY-EXPIRED" http://localhost:8089/api/reservations
