@@ -1,4 +1,21 @@
 /project/build/
+# Ignore application.properties files
+**/application.properties
+
+# Ignore build output directories
+target/
+build/
+out/
+
+# Ignore IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
 
 
 
+/project/docker/postgres/Dockerfile
+/project/src/main/resources/application.properties
+/project/target
+/project/script.bat

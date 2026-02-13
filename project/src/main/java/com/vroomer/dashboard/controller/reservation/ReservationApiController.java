@@ -15,6 +15,7 @@ import etu.sprint.annotation.AnnotationController;
 import etu.sprint.annotation.GetMapping;
 import etu.sprint.annotation.RequestParameter;
 import etu.sprint.annotation.RestAPI;
+import etu.sprint.annotation.Token;
 
 
 @org.springframework.stereotype.Component
@@ -24,6 +25,7 @@ public class ReservationApiController {
     private ReservationService reservationService;
     
 
+    @Token
     @RestAPI
     @GetMapping("/reservations")
     public List<ReservationDTO> listReservationsApi() {
@@ -35,6 +37,7 @@ public class ReservationApiController {
         return dtos;
     }
 
+    @Token
     @RestAPI
     @GetMapping("/reservations/filter")
     public List<ReservationDTO> filterReservationsBetweenDates(

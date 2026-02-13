@@ -13,6 +13,8 @@ import etu.sprint.model.Session;
 
 import etu.sprint.annotation.RestAPI;
 import etu.sprint.annotation.Authorized;
+import etu.sprint.annotation.Token;
+import etu.sprint.util.TokenValidator;
 import etu.sprint.model.JsonResponse;
 import etu.sprint.util.JsonConverter;
 import etu.sprint.util.AuthorizationManager;
@@ -518,6 +520,29 @@ public class HandlerAdapter {
                         Map<String, String> pathVariables) throws ServletException, IOException {
         try {
             Method method = controllerMethod.method;
+
+            // Vérifier le token avant d'exécuter la méthode
+            if (method.isAnnotationPresent(Token.class)) {
+                String authToken = request.getHeader("Authorization");
+                if (authToken == null || authToken.isEmpty()) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.getWriter().print("{\"status\":\"error\",\"code\":401,\"message\":\"Token manquant dans le header Authorization\",\"data\":null}");
+                    return;
+                }
+                // Valider le token via TokenValidator du framework (JDBC direct)
+                Object appCtx = getSpringApplicationContext(request.getServletContext());
+                boolean tokenValid = TokenValidator.isTokenValid(appCtx, authToken);
+                if (!tokenValid) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.getWriter().print("{\"status\":\"error\",\"code\":403,\"message\":\"Token invalide ou expiré\",\"data\":null}");
+                    return;
+                }
+            }
+
             // Vérifier l'autorisation avant d'exécuter la méthode
             if (method.isAnnotationPresent(Authorized.class)) {
                 if (authorizationManager == null) {
