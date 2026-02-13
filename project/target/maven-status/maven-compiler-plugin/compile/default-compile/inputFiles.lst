@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\config\SpringContextInitializer.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\login\HelloController.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\reservation\ReservationApiController.java
@@ -13,3 +14,31 @@ D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\servi
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\hotel\HotelService.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\reservation\ReservationService.java
 D:\L3\GProjet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\VroomerApplication.java
+=======
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\config\SpringContextInitializer.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\carburant\CarburantApiController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\carburant\CarburantPageController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\login\HelloController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\reservation\ReservationApiController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\reservation\ReservationController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\vehicule\VehiculeApiController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\controller\vehicule\VehiculePageController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\dto\ReservationDTO.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\dto\VehiculeDTO.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\carburant\Carburant.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\client\Client.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\hotel\Hotel.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\reservation\Reservation.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\model\vehicule\Vehicule.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\repository\carburant\CarburantRepository.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\repository\client\ClientRepository.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\repository\hotel\HotelRepository.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\repository\reservation\ReservationRepository.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\repository\vehicule\VehiculeRepository.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\carburant\CarburantService.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\client\ClientService.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\hotel\HotelService.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\reservation\ReservationService.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\service\vehicule\VehiculeService.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\project\src\main\java\com\vroomer\dashboard\VroomerApplication.java
+>>>>>>> sprint2/1/crud-vehicule

@@ -68,6 +68,36 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="sidebar-item has-sub ${currentMenu == 'vehicule' ? 'active open' : ''}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-truck"></i>
+                            <span>Véhicules</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="/vehicules" class="submenu-link">Liste</a>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="/vehicules/insert" class="submenu-link">Ajouter</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-item has-sub ${currentMenu == 'carburant' ? 'active open' : ''}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-fuel-pump"></i>
+                            <span>Carburants</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="/carburants" class="submenu-link">Liste</a>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="/carburants/insert" class="submenu-link">Ajouter</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="sidebar-title">Session</li>
                     <li class="sidebar-item">
                         <a href="/logout" class="sidebar-link">

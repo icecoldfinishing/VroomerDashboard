@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\PostMapping.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\Authorized.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\util\JsonConverter.java
@@ -28,3 +29,33 @@ D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\Req
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\AnnotationController.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\view\ViewResolver.java
 D:\L3\GProjet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\RestAPI.java
+=======
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\ControllerMethod.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\Session.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\JsonResponse.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\util\ClassScanner.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\DeleteMapping.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\view\ViewResolver.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\PutMapping.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\MethodInfo.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\PatchMapping.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\web\FrontServlet.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\PostMapping.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\HttpMethod.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\connexion\Connexion.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\RouteMatcher.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\util\TypeConverter.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\GetMapping.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\AnnotationController.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\RequestMapping.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\Session.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\DataObject.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\Authorized.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\ModelView.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\RequestParameter.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\model\FileUpload.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\util\JsonConverter.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\handler\HandlerAdapter.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\annotation\RestAPI.java
+C:\Users\andyp\OneDrive\Bureau\ITU\S5\framework\projet\VroomerDashboard\framework\src\main\java\etu\sprint\util\AuthorizationManager.java
+>>>>>>> sprint2/1/crud-vehicule

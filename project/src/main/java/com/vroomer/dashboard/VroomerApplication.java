@@ -22,11 +22,11 @@ public class VroomerApplication {
 
 	@Bean
 	public ServletRegistrationBean<FrontServlet> frontServletRegistration() {
-		String[] mappings = {"/home/*","/reservations/*","/api/*"};
+		String[] mappings = {"/home/*","/reservations/*","/vehicules/*","/carburants/*","/api/*"};
 		ServletRegistrationBean<FrontServlet> registration = new ServletRegistrationBean<>(new FrontServlet(), mappings);
 		registration.setName("FrontServlet");
 		registration.setLoadOnStartup(1);
-		registration.addInitParameter("controller-package", "com.vroomer.dashboard.controller.login;com.vroomer.dashboard.controller.reservation");
+		registration.addInitParameter("controller-package", "com.vroomer.dashboard.controller.login;com.vroomer.dashboard.controller.reservation;com.vroomer.dashboard.controller.vehicule;com.vroomer.dashboard.controller.carburant");
 		return registration;
 	}
 }
