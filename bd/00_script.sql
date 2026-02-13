@@ -69,6 +69,7 @@ CREATE TABLE token (
     datetime_exp TIMESTAMP NOT NULL
 );
 
+
 -- ============================================
 -- Insertion de clients
 -- ============================================
@@ -113,27 +114,6 @@ INSERT INTO reservation (id_client, nb_passager, dateheure, id_hotel) VALUES
 (3, 1, '2026-02-09 09:15:00', 3),
 (4, 3, '2026-02-10 14:45:00', 4);
 
-<<<<<<< HEAD
--- =========================
--- TABLE TOKEN (Sécurité API)
--- =========================
-CREATE TABLE token (
-	id_token SERIAL PRIMARY KEY,
-	token VARCHAR(255) NOT NULL UNIQUE,
-	datetime_exp TIMESTAMP NOT NULL
-);
-
--- Insertion de tokens de test
-INSERT INTO token (token, datetime_exp) VALUES
-('FRONT-KEY-PUBLIC', '2027-02-12 23:59:59'),
-('FRONT-KEY-DEV', '2027-06-30 23:59:59'),
-('FRONT-KEY-TEST', '2027-12-31 23:59:59'),
-('FRONT-KEY-EXPIRED', '2025-01-01 00:00:00');
-
-
-
-
-=======
 -- ============================================
 -- Insertion de types de carburant
 -- ============================================
@@ -149,10 +129,14 @@ INSERT INTO vehicule (ref, nb_place, id_carburant) VALUES
 ('V003', 12, 3), -- Hybride
 ('V004', 5, 4);  -- Electrique
 
--- ============================================
--- Insertion de tokens (exemple)
--- ============================================
+-- Insertion de tokens de test
 INSERT INTO token (token, datetime_exp) VALUES
-('abc123def456', '2026-02-15 23:59:59'),
-('xyz789ghi012', '2026-02-16 12:00:00');
->>>>>>> sprint2/1/crud-vehicule
+('FRONT-KEY-PUBLIC', '2027-02-12 23:59:59'),
+('FRONT-KEY-DEV', '2027-06-30 23:59:59'),
+('FRONT-KEY-TEST', '2027-12-31 23:59:59'),
+('FRONT-KEY-EXPIRED', '2025-01-01 00:00:00');
+
+
+
+
+

@@ -1,5 +1,4 @@
 /project/build/
-<<<<<<< HEAD
 # Ignore application.properties files
 **/application.properties
 
@@ -16,9 +15,7 @@ Thumbs.db
 
 
 
-=======
 /project/docker/postgres/Dockerfile
 /project/src/main/resources/application.properties
 /project/target
 /project/script.bat
->>>>>>> sprint2/1/crud-vehicule
